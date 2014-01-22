@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file is protected by Copyright. Please refer to the COPYRIGHT file
+ distributed with this source distribution.
+
+ This file is part of REDHAWK.
+
+ REDHAWK is free software: you can redistribute it and/or modify it
+ under the terms of the GNU Lesser General Public License as published by the
+ Free Software Foundation, either version 3 of the License, or (at your
+ option) any later version.
+
+ REDHAWK is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+ for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program.  If not, see http://www.gnu.org/licenses/.
+-->
+
+<!DOCTYPE properties PUBLIC "-//JTRS//DTD SCA V2.2.2 PRF//EN" "properties.dtd">
+<properties>
+  <simple id="_Data Type" mode="readonly" name="_Data Type" type="string">
+    <description>A read only indicator of whether the data is real or complex</description>
+    <enumerations>
+      <enumeration label="real" value="real"/>
+      <enumeration label="complex" value="complex"/>
+    </enumerations>
+    <kind kindtype="configure"/>
+    <action type="external"/>
+  </simple>
+  <simple id="_Input Rate" mode="readonly" name="_Input Rate" type="float">
+    <description>A read only indicator of the input rate obtained from the SRI</description>
+    <units>S/s</units>
+    <kind kindtype="configure"/>
+    <action type="external"/>
+  </simple>
+  <simple id="Bandwidth" mode="readwrite" type="float">
+    <description>The bandwidth of the filter.  For a lowpass filter, this is the highest frequency allowed to pass (highest frequency - 0).  For a bandpass filter, this is the highest frequency minus the lowest frequency allowed to pass (highest frequency - lowest frequency).</description>
+    <value>100000</value>
+    <units>Hz</units>
+    <kind kindtype="configure"/>
+    <action type="external"/>
+  </simple>
+  <simple id="Center Frequency" mode="readwrite" type="float">
+    <description>The center frequency of the filter.  For a lowpass filter, this would be 0</description>
+    <value>0</value>
+    <units>Hz</units>
+    <kind kindtype="configure"/>
+    <action type="external"/>
+  </simple>
+  <simple id="Filter Type" mode="readwrite" type="string">
+    <description>The type of filter to apply to the input stream</description>
+    <value>lowpass</value>
+    <enumerations>
+      <enumeration label="lowpass" value="lowpass"/>
+      <enumeration label="bandpass" value="bandpass"/>
+    </enumerations>
+    <kind kindtype="configure"/>
+    <action type="external"/>
+  </simple>
+  <simple id="Gain" mode="readwrite" type="float">
+    <description>The gain of the filter.  Note that this is not specified in dB, but is simply a multiple applied to each sample after filtering.</description>
+    <value>1</value>
+    <kind kindtype="configure"/>
+    <action type="external"/>
+  </simple>
+  <simple id="Number of Taps" mode="readwrite" type="long">
+    <description>The number of coefficients used in the FIR filter</description>
+    <value>20</value>
+    <kind kindtype="configure"/>
+    <action type="external"/>
+  </simple>
+  <simple id="Output Rate" mode="readwrite" type="float">
+    <description>The desired output rate of the filter.  If the output rate is greater than the input rate, no decimation is performed</description>
+    <value>256000</value>
+    <units>S/s</units>
+    <kind kindtype="configure"/>
+    <action type="external"/>
+  </simple>
+</properties>

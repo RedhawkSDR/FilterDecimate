@@ -1,0 +1,7 @@
+58467882ccfb209b5308605c96ca0d36 main.cpp
+ac6525c9cf72406b48182af545d2cc93 FilterDecimate_base.h
+7c809860fe6e1ed9d21c311631986d13 reconf
+3cf0e43e0dfff02e27d0fa9b26a8887d configure.ac
+dff7da7268f70385878ff20f8f937580 FilterDecimate_base.cpp
+66816322364a03701ed2c2f97880cce9 Makefile.am
+2edeb4570ba55b42155b992f38587fb6 build.sh
