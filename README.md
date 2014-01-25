@@ -1,4 +1,4 @@
-# Liquid_FilterDecimate
+# FilterDecimate
 
 ## Description
 
@@ -18,4 +18,4 @@ This work is protected by Copyright. Please refer to the [Copyright File](COPYRI
 
 ## License
 
-Liquid_FilterDecimate is licensed under the GNU Lesser General Public License (LGPL).
+FilterDecimate is licensed under the GNU General Public License (GPL).
