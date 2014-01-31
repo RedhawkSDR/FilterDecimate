@@ -8,4 +8,3 @@ redhawk_SOURCES_auto += FilterDecimate.h
 redhawk_SOURCES_auto += FilterDecimate_base.cpp
 redhawk_SOURCES_auto += FilterDecimate_base.h
 redhawk_SOURCES_auto += main.cpp
-redhawk_LDADD_auto = /usr/local/lib/libliquid.so
