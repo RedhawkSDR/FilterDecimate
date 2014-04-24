@@ -37,7 +37,7 @@ OSSIE_ENABLE_LOG4CXX
 AX_BOOST_BASE([1.41])
 AX_BOOST_THREAD
 
-export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/var/redhawk/sdr/dom/sharedPkgs/liquid-dsp/default_impl"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$SDRROOT/dom/sharedPkgs/liquid-dsp/default_impl"
 PKG_CHECK_MODULES(libliquid, libliquid >= 1.2.0)
 AC_SUBST(libliquid_CFLAGS)
 AC_SUBST(libliquid_LIBS)
