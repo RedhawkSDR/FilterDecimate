@@ -22,11 +22,10 @@
 #include "ossie/ossieSupport.h"
 
 #include "FilterDecimate.h"
-
-
 int main(int argc, char* argv[])
 {
     FilterDecimate_i* FilterDecimate_servant;
     Resource_impl::start_component(FilterDecimate_servant, argc, argv);
     return 0;
 }
+
