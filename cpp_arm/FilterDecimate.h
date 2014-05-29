@@ -22,7 +22,7 @@
 #define FILTERDECIMATE_IMPL_H
 
 #include "FilterDecimate_base.h"
-#include <liquid/liquid.h>
+#include <liquid.h>
 #include <complex>
 
 class FilterDecimate_i;

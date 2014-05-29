@@ -41,12 +41,12 @@ AX_BOOST_SYSTEM
 AX_BOOST_THREAD
 AX_BOOST_REGEX
 
-export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$SDRROOT/dom/sharedPkgs/liquid-dsp/default_impl"
-PKG_CHECK_MODULES(libliquid, libliquid >= 1.2.0)
-AC_SUBST(libliquid_CFLAGS)
-AC_SUBST(libliquid_LIBS)
-CXXFLAGS="$CXXFLAGS $libliquid_CFLAGS"
-LIBS="$LIBS $libliquid_LIBS"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:${SDR_ROOT}/dom/deps/liquid_dsp_v1/cpp/lib/pkgconfig"
+PKG_CHECK_MODULES(liquid_dsp_v1, liquid_dsp_v1 >= 1.2.0)
+AC_SUBST(liquid_dsp_v1_CFLAGS)
+AC_SUBST(liquid_dsp_v1_LIBS)
+CXXFLAGS="$CXXFLAGS $liquid_dsp_v1_CFLAGS"
+LIBS="$LIBS $liquid_dsp_v1_LIBS"
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
