@@ -19,7 +19,7 @@
  along with this program.  If not, see http://www.gnu.org/licenses/.
 -->
 <!DOCTYPE softpkg PUBLIC "-//JTRS//DTD SCA V2.2.2 SPD//EN" "softpkg.dtd">
-<softpkg id="DCE:4b6bcb6c-0d4c-4dcf-ac21-bdf65655b1dc" name="FilterDecimate" type="sca_compliant">
+<softpkg id="DCE:4b6bcb6c-0d4c-4dcf-ac21-bdf65655b1dc" name="FilterDecimate" type="sca_compliant" version="1.0.0">
   <title></title>
   <author>
     <name>null</name>
