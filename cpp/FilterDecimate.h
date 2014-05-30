@@ -43,26 +43,36 @@ class FilterDecimate_i : public FilterDecimate_base
 		//Filter Objects
 		firdecim_crcf m_complexFilter;
 		firdecim_rrrf m_realFilter;
-		int m_complexFilterObjectCreated;
-		int m_realFilterObjectCreated;
-		bool m_propertyChanged;
+		bool m_complexFilterObjectCreated;
+		bool m_realFilterObjectCreated;
 
 		//Filter Properties
-		float m_fc;				// filter cutoff
+		float m_fc;				// filter cutoff frequency
 		float m_atten;         	// stop-band attenuation [dB]
 		float m_mu;          	// timing offset
 		int m_decimFactor;		// decimation factor
 
 		//SRI Data
-		double m_delta;
 		float m_size;
+		BULKIO::StreamSRI m_sriOut;
 
 		//Member Functions
 		void createComplexFilter();
 		void createRealFilter();
-		void checkProperties();
 		void sizeVectors();
-		void propertyChangeListener(const std::string&);
+		void validateFilterCutoff();
+		void validateDecimationFactor();
+
+		//Property Listener Functions
+		void filterTypeChanged(const std::string *oldValue, const std::string *newValue);
+		void numberOfTapsChanged(const unsigned short *oldValue, const unsigned short *newValue);
+		void centerFrequencyChanged(const float *oldValue, const float *newValue);
+		void bandwidthChanged(const float *oldValue, const float *newValue);
+		void gainChanged(const float *oldValue, const float *newValue);
+		void outputRateChanged(const float *oldValue, const float *newValue);
+
+		boost::mutex propertyLock_;
+
 };
 
 #endif

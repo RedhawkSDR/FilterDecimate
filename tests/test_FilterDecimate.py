@@ -49,8 +49,8 @@ f = open('unit_test.log','w')
 #							Define Test Cases											#
 #########################################################################################
 case1 = {'Filter_Type':'lowpass', 'Number_of_Taps':100, 'Center_Frequency':0, 'Bandwidth':10000, 'Gain':1, 'Output_Rate':256000}
-case2 = {'Filter_Type':'lowpass', 'Number_of_Taps':50, 'Center_Frequency':0, 'Bandwidth':10000, 'Gain':1, 'Output_Rate':256000}
-case3 = {'Filter_Type':'lowpass', 'Number_of_Taps':37, 'Center_Frequency':0, 'Bandwidth':10000, 'Gain':1, 'Output_Rate':256000}
+case2 = {'Filter_Type':'lowpass', 'Number_of_Taps':80, 'Center_Frequency':0, 'Bandwidth':5000, 'Gain':1, 'Output_Rate':256000}
+case3 = {'Filter_Type':'lowpass', 'Number_of_Taps':32, 'Center_Frequency':0, 'Bandwidth':5000, 'Gain':1, 'Output_Rate':256000}
 case4 = {'Filter_Type':'lowpass', 'Number_of_Taps':100, 'Center_Frequency':1000, 'Bandwidth':10000, 'Gain':1, 'Output_Rate':256000}
 case5 = {'Filter_Type':'lowpass', 'Number_of_Taps':47, 'Center_Frequency':0, 'Bandwidth':6000, 'Gain':1, 'Output_Rate':256000}
 case6 = {'Filter_Type':'lowpass', 'Number_of_Taps':100, 'Center_Frequency':0, 'Bandwidth':10000, 'Gain':100, 'Output_Rate':256000}
@@ -91,7 +91,7 @@ display(f,'*********************************************************************
 # Create components and connections
 #------------------------------------------------
 display(f,'* Creating Components and Connections\n')
-filt = sb.launch('../FilterDecimate.spd.xml',execparams={"DEBUG_LEVEL":5})
+filt = sb.launch('../FilterDecimate.spd.xml',execparams={"DEBUG_LEVEL":3})
 
 inputS=sb.DataSource(bytesPerPush=64);
 outputS=sb.DataSink();
@@ -166,7 +166,7 @@ for ii in lowpass_cases:
 	inputS.push(data, False, "low_real", 256000.0,False)
 	time.sleep(.5)
 	received_data = outputS.getData()
-	display(f,'* Filtered with FilterDecimates Component\n')
+	display(f,'* Filtered with FilterDecimate Component\n')
 
 	#------------------------------------------------
 	# Create a FIR filter and apply it to signal.
@@ -193,7 +193,7 @@ for ii in lowpass_cases:
 			py_dec[i/int(sample_rate / ii['Output_Rate'])] = j
 
 	display(f,'* Filtered & Decimated Signal with NumPy \n\n')
-
+	
 	#------------------------------------------------
 	# Adjust filter gains and compare filtered data
 	#------------------------------------------------
@@ -211,7 +211,20 @@ for ii in lowpass_cases:
 		true_max = py_max*gain_adjust
 
 	py_dec *= gain_adjust
-
+	
+	rec_curr = 0
+	rec_prev = 0
+	rec_count = 0
+	rec_changed = False
+		
+	py_curr = 0
+	py_prev = 0
+	py_count = 0
+	py_changed = False
+	
+	offset = 0
+	count = 0
+		
 	for j in range(int(length*.25), int(length*.75)):
 		total += abs(py_dec[j]-received_data[j])
 	
@@ -240,9 +253,11 @@ for ii in lowpass_cases:
 	else:
 		print "-------------------------------------------------------"
 		print "LOWPASS TEST w/ Real Data ", case, ".......................",u'\u2718'
+		print "Data variance: ", avg, "%. Must be less than 20% to pass."
 		print "-------------------------------------------------------"
 		f.write("-------------------------------------------------------\n")
 		f.write("LOWPASS TEST w/ Real Data " + str(case) + "......................."+u'\u2718'.encode('utf8'))
+		f.write("Data variance: " + str(avg) + "%. Must be less than 20% to pass.")
 		f.write("\n-------------------------------------------------------\n")
 	
 	display(f,'\n\n')
@@ -298,7 +313,7 @@ display(f,'*********************************************************************
 # Create components and connections
 #------------------------------------------------
 display(f,'* Creating Components and Connections\n')
-filt = sb.launch('../FilterDecimate.spd.xml',execparams={"DEBUG_LEVEL":5})
+filt = sb.launch('../FilterDecimate.spd.xml',execparams={"DEBUG_LEVEL":3})
 
 inputS=sb.DataSource(bytesPerPush=64);
 outputS=sb.DataSink();
@@ -557,7 +572,7 @@ display(f,'*********************************************************************
 # Create components and connections
 #------------------------------------------------
 display(f,'* Creating Components and Connections\n')
-filt = sb.launch('../FilterDecimate.spd.xml',execparams={"DEBUG_LEVEL":5})
+filt = sb.launch('../FilterDecimate.spd.xml',execparams={"DEBUG_LEVEL":3})
 
 inputS=sb.DataSource(bytesPerPush=64);
 outputS=sb.DataSink();
@@ -782,7 +797,7 @@ display(f,'*********************************************************************
 # Create components and connections
 #------------------------------------------------
 display(f,'* Creating Components and Connections\n')
-filt = sb.launch('../FilterDecimate.spd.xml',execparams={"DEBUG_LEVEL":5})
+filt = sb.launch('../FilterDecimate.spd.xml',execparams={"DEBUG_LEVEL":3})
 
 inputS=sb.DataSource(bytesPerPush=64);
 outputS=sb.DataSink();

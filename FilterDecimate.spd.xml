@@ -18,7 +18,6 @@
  You should have received a copy of the GNU Lesser General Public License
  along with this program.  If not, see http://www.gnu.org/licenses/.
 -->
-
 <!DOCTYPE softpkg PUBLIC "-//JTRS//DTD SCA V2.2.2 SPD//EN" "softpkg.dtd">
 <softpkg id="DCE:4b6bcb6c-0d4c-4dcf-ac21-bdf65655b1dc" name="FilterDecimate" type="sca_compliant">
   <title></title>
@@ -42,14 +41,13 @@
     <programminglanguage name="C++"/>
     <humanlanguage name="EN"/>
     <os name="Linux"/>
-    <dependency type="runtime_requirements">
-      <softpkgref>
-        <localfile name="/sharedPkgs/liquid-dsp/libliquid.spd.xml"/>
-        <implref refid="default_impl"/>
-      </softpkgref>
-    </dependency>
     <processor name="x86"/>
     <processor name="x86_64"/>
+    <dependency type="matching">
+      <softpkgref>
+        <localfile name="/deps/liquid_dsp_v1/liquid_dsp_v1.spd.xml"/>
+      </softpkgref>
+    </dependency>
   </implementation>
   <implementation id="cpp_arm">
     <description>The implementation contains descriptive information about the template for a software component.</description>
@@ -64,8 +62,7 @@
     <processor name="armv7l"/>
     <dependency type="allocation">
       <softpkgref>
-        <localfile name="/sharedPkgs/liquid-dsp/libliquid.spd.xml"/>
-        <implref refid="default_impl"/>
+        <localfile name="/deps/liquid_dsp_v1/liquid_dsp_v1.spd.xml"/>
       </softpkgref>
     </dependency>
   </implementation>

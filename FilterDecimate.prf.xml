@@ -18,7 +18,6 @@
  You should have received a copy of the GNU Lesser General Public License
  along with this program.  If not, see http://www.gnu.org/licenses/.
 -->
-
 <!DOCTYPE properties PUBLIC "-//JTRS//DTD SCA V2.2.2 PRF//EN" "properties.dtd">
 <properties>
   <simple id="_Data Type" mode="readonly" name="_Data Type" type="string">
