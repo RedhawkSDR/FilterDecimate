@@ -58,7 +58,8 @@ FilterDecimate_i::FilterDecimate_i(const char *uuid, const char *label) :
 	m_complexFilterObjectCreated = false;
 	m_realFilterObjectCreated = false;
 
-	m_sriOut = bulkio::sri::create("BPSK_OUT"); //Create output sri object
+	//Create output sri object
+	m_sriOut = bulkio::sri::create("FilterDecimate_OUT");
 
 	m_realFilter = NULL;
 	m_complexFilter = NULL;
@@ -91,7 +92,7 @@ void FilterDecimate_i::numberOfTapsChanged(const unsigned short *oldValue, const
 	boost::mutex::scoped_lock lock(propertyLock_);
 
 	//Check that Number of Taps is valid
-	if (Number_of_Taps < 1) {
+	if (*newValue < 1) {
 		Number_of_Taps = *oldValue;
 		std::cerr << "WARNING! -- 'Number_of_Taps' Must Be Greater Than 0!" << std::endl;
 		std::cerr << "-- 'Number_of_Taps' set to " << *oldValue << std::endl;
@@ -115,7 +116,7 @@ void FilterDecimate_i::centerFrequencyChanged(const float *oldValue, const float
 	boost::mutex::scoped_lock lock(propertyLock_);
 
 	//Check that Center_Frequency is valid
-	if (Center_Frequency < 0) {
+	if (*newValue < 0) {
 		Center_Frequency = *oldValue;
 		std::cerr << "WARNING! -- 'Center_Frequency' Must Be Equal to or Greater Than 0!" << std::endl;
 		std::cerr << "-- 'Center_Frequency' set to " << *oldValue << std::endl;
@@ -157,7 +158,7 @@ void FilterDecimate_i::gainChanged(const float *oldValue, const float *newValue)
 	boost::mutex::scoped_lock lock(propertyLock_);
 
 	//Check that Gain is a valid
-	if (Gain<=0) {
+	if (*newValue <= 0) {
 		Gain = *oldValue;
 		std::cerr << "WARNING! -- 'Gain' Must Be Greater Than Zero!" << std::endl;
 		std::cerr << "-- 'Gain' Set to " << *oldValue << std::endl;

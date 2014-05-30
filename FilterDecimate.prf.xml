@@ -35,21 +35,21 @@
     <kind kindtype="configure"/>
     <action type="external"/>
   </simple>
-  <simple id="Bandwidth" mode="readwrite" type="float">
+  <simple id="Bandwidth" mode="readwrite" name="Bandwidth" type="float">
     <description>The bandwidth of the filter.  For a lowpass filter, this is the highest frequency allowed to pass (highest frequency - 0).  For a bandpass filter, this is the highest frequency minus the lowest frequency allowed to pass (highest frequency - lowest frequency).</description>
     <value>100000</value>
     <units>Hz</units>
     <kind kindtype="configure"/>
     <action type="external"/>
   </simple>
-  <simple id="Center Frequency" mode="readwrite" type="float">
+  <simple id="Center Frequency" mode="readwrite" name="Center Frequency" type="float">
     <description>The center frequency of the filter.  For a lowpass filter, this would be 0</description>
     <value>0</value>
     <units>Hz</units>
     <kind kindtype="configure"/>
     <action type="external"/>
   </simple>
-  <simple id="Filter Type" mode="readwrite" type="string">
+  <simple id="Filter Type" mode="readwrite" name="Filter Type" type="string">
     <description>The type of filter to apply to the input stream</description>
     <value>lowpass</value>
     <enumerations>
@@ -59,19 +59,19 @@
     <kind kindtype="configure"/>
     <action type="external"/>
   </simple>
-  <simple id="Gain" mode="readwrite" type="float">
+  <simple id="Gain" mode="readwrite" name="Gain" type="float">
     <description>The gain of the filter.  Note that this is not specified in dB, but is simply a multiple applied to each sample after filtering.</description>
     <value>1</value>
     <kind kindtype="configure"/>
     <action type="external"/>
   </simple>
-  <simple id="Number of Taps" mode="readwrite" type="long">
+  <simple id="Number of Taps" mode="readwrite" name="Number of Taps" type="long">
     <description>The number of coefficients used in the FIR filter</description>
     <value>20</value>
     <kind kindtype="configure"/>
     <action type="external"/>
   </simple>
-  <simple id="Output Rate" mode="readwrite" type="float">
+  <simple id="Output Rate" mode="readwrite" name="Output Rate" type="float">
     <description>The desired output rate of the filter.  If the output rate is greater than the input rate, no decimation is performed</description>
     <value>256000</value>
     <units>S/s</units>
