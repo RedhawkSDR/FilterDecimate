@@ -65,7 +65,7 @@
     <kind kindtype="configure"/>
     <action type="external"/>
   </simple>
-  <simple id="Number of Taps" mode="readwrite" name="Number of Taps" type="long">
+  <simple id="Number of Taps" mode="readwrite" name="Number of Taps" type="ushort">
     <description>The number of coefficients used in the FIR filter</description>
     <value>20</value>
     <kind kindtype="configure"/>

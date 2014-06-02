@@ -49,7 +49,7 @@ class FilterDecimate_base : public Resource_impl, protected ThreadedComponent
         float Center_Frequency;
         std::string Filter_Type;
         float Gain;
-        CORBA::Long Number_of_Taps;
+        unsigned short Number_of_Taps;
         float Output_Rate;
 
         // Ports
