@@ -55,6 +55,7 @@ class FilterDecimate_i : public FilterDecimate_base
 		//SRI Data
 		float m_size;
 		BULKIO::StreamSRI m_sriOut;
+		bool m_sriChanged;
 
 		//Member Functions
 		void createComplexFilter();

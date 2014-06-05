@@ -60,6 +60,7 @@ FilterDecimate_i::FilterDecimate_i(const char *uuid, const char *label) :
 
 	//Create output sri object
 	m_sriOut = bulkio::sri::create("FilterDecimate_OUT");
+	m_sriChanged = false;
 
 	m_realFilter = NULL;
 	m_complexFilter = NULL;
@@ -188,6 +189,8 @@ void FilterDecimate_i::outputRateChanged(const float *oldValue, const float *new
 		m_decimFactor =  _Input_Rate / Output_Rate;
 		validateDecimationFactor();
 
+		m_sriChanged = true;
+
 		//Resize output vector based on new decimation factor
 		sizeVectors();
 
@@ -222,7 +225,7 @@ int FilterDecimate_i::serviceFunction()
 		}
 
 		//Update variables and filters if input SRI changes
-		if (input->sriChanged) {
+		if (input->sriChanged || m_sriChanged) {
 			_Input_Rate = (1.0f / input->SRI.xdelta);
 
 			//Calculate decimation factor and set filter cutoff
@@ -247,6 +250,7 @@ int FilterDecimate_i::serviceFunction()
 			m_sriOut = input->SRI;
 			m_sriOut.xdelta *= m_decimFactor;
 			dataFloat_out->pushSRI(m_sriOut);
+			m_sriChanged = false;
 		}
 
 		if (_Data_Type == "complex") {
