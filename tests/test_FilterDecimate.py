@@ -3,16 +3,16 @@
 # This file is protected by Copyright. Please refer to the COPYRIGHT file
 # distributed with this source distribution.
 #
-# This file is part of FilterDecimate.
+# This file is part of REDHAWK.
 #
-# FilterDecimate is free software: you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the
+# REDHAWK is free software: you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by the
 # Free Software Foundation, either version 3 of the License, or (at your
 # option) any later version.
-# 
-# FilterDecimate is distributed in the hope that it will be useful, but WITHOUT
+#
+# REDHAWK is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
 # for more details.
 #
 # You should have received a copy of the GNU Lesser General Public License
@@ -37,6 +37,7 @@ import sys
 
 import time, struct
 from ctypes import *
+from unittest import TestCase
 
 def display(f, string):
 	f.write(string)
@@ -78,7 +79,30 @@ passed = {1:True, 2:True, 3:True, 4:True, 5:True, 6:True, 7:True, 8:True, 9:True
 
 passed_count = 0
 
+######################## Function to Test SRI Pushing #################################
+def validateSRIPushing(streamID='test_stream', outputRate=1.0, cmplx = False):
+	
+	passed_test = True
+	
+	passed_test = False if (outputS.sri().streamID != streamID) else True
+	if (passed_test == False) : display(f, "TEST FAILED: Component not pushing streamID correctly!\n\n")
+	passed[passed_count] = False if not passed_test else passed[passed_count]
+	passed_test = True
+	
+	passed_test = False if (outputS.sri().mode != cmplx) else True
+	if (passed_test == False) : display(f, "TEST FAILED: Component not pushing complex or real mode correctly!\n\n") 
+	passed[passed_count] = False if not passed_test else passed[passed_count]
+	passed_test = True
+	
+	# Account for rounding error
+	calcSR = 1/outputS.sri().xdelta
+	diffSR = abs(calcSR-outputRate)
+	tolerance = 1
+	passed_test = True if (diffSR < tolerance ) else False
+	if (passed_test == False) : display(f, "TEST FAILED: Component not pushing OutputRate correctly!\n\n") 
+	passed[passed_count] = False if not passed_test else passed[passed_count]
 
+		
 #########################################################################################
 #							UNIT TEST 1 - Lowpass - Real Data							#
 #########################################################################################
@@ -230,16 +254,22 @@ for ii in lowpass_cases:
 	
 	avg = 100*(total/length)/true_max
 
-	#------------------------------------------------
-	# Check if variance in data is small enough
-	#------------------------------------------------
+	#--------------------------------------------------------
+	# Check if variance in data is small enough and test SRI
+	#--------------------------------------------------------
+	display(f,'* Checking SRI\n')
+	validateSRIPushing(streamID = 'low_real', outputRate = ii['Output_Rate'], cmplx = False)
+
 	display(f,'* Comparing Output Data\n')
-	passed[passed_count] = True
 	if len(received_data) == 0 :
 	    passed[passed_count] = False
+	    print "TEST FAILED: No data received!"
+	    f.write("\nTEST FAILED: No data received!\n")
 	if avg > 20:
 		passed[passed_count] = False
-	
+		print "TEST FAILED: Data variance is ", avg, "%. Must be less than 20% to pass!"
+		f.write("\nTEST FAILED: Data variance is " + str(avg) + "%. Must be less than 20% to pass!\n")
+
 	#------------------------------------------------
 	# Output Results
 	#------------------------------------------------
@@ -253,11 +283,9 @@ for ii in lowpass_cases:
 	else:
 		print "-------------------------------------------------------"
 		print "LOWPASS TEST w/ Real Data ", case, ".......................",u'\u2718'
-		print "Data variance: ", avg, "%. Must be less than 20% to pass."
 		print "-------------------------------------------------------"
 		f.write("-------------------------------------------------------\n")
 		f.write("LOWPASS TEST w/ Real Data " + str(case) + "......................."+u'\u2718'.encode('utf8'))
-		f.write("Data variance: " + str(avg) + "%. Must be less than 20% to pass.")
 		f.write("\n-------------------------------------------------------\n")
 	
 	display(f,'\n\n')
@@ -493,12 +521,18 @@ for ii in bandpass_cases:
 	#------------------------------------------------
 	# Check if variance in data is small enough
 	#------------------------------------------------
+	display(f,'* Checking SRI\n')
+	validateSRIPushing(streamID = 'bandpass_real', outputRate = ii['Output_Rate'], cmplx = False)
+
 	display(f,'* Comparing Output Data\n')
-	passed[passed_count] = True
 	if len(received_data) == 0 :
 	    passed[passed_count] = False
-	if avg >20:
+	    print "TEST FAILED: No data received!"
+	    f.write("\nTEST FAILED: No data received!\n")
+	if avg > 20:
 		passed[passed_count] = False
+		print "TEST FAILED: Data variance is ", avg, "%. Must be less than 20% to pass!"
+		f.write("\nTEST FAILED: Data variance is " + str(avg) + "%. Must be less than 20% to pass!\n")
 	
 	#------------------------------------------------
 	# Output Results
@@ -713,12 +747,18 @@ for ii in lowpass_cases:
 	#------------------------------------------------
 	# Check if variance in data is small enough
 	#------------------------------------------------
+	display(f,'* Checking SRI\n')
+	validateSRIPushing(streamID = 'low_complex', outputRate = ii['Output_Rate'], cmplx = True)
+
 	display(f,'* Comparing Output Data\n')
-	passed[passed_count] = True
 	if len(received_data) == 0 :
 	    passed[passed_count] = False
+	    print "TEST FAILED: No data received!"
+	    f.write("\nTEST FAILED: No data received!\n")
 	if avg > 20:
 		passed[passed_count] = False
+		print "TEST FAILED: Data variance is ", avg, "%. Must be less than 20% to pass!"
+		f.write("\nTEST FAILED: Data variance is " + str(avg) + "%. Must be less than 20% to pass!\n")
 
 	#------------------------------------------------
 	# Output Results
@@ -874,7 +914,7 @@ for ii in bandpass_cases:
 	for i in signal_redhawk:
 		data.append(float(i))
 	
-	inputS.push(data, False, "low_complex", 256000.0, True)
+	inputS.push(data, False, "bandpass_complex", 256000.0, True)
 	time.sleep(1.5)
 
 	received_data_redhawk = arange((nsamples*2) / (sample_rate / ii['Output_Rate']),dtype=np.complex128)
@@ -990,12 +1030,18 @@ for ii in bandpass_cases:
 	#------------------------------------------------
 	# Check if variance in data is small enough
 	#------------------------------------------------
+	display(f,'* Checking SRI\n')
+	validateSRIPushing(streamID = 'bandpass_complex', outputRate = ii['Output_Rate'], cmplx = True)
+
 	display(f,'* Comparing Output Data\n')
-	passed[passed_count] = True
 	if len(received_data) == 0 :
 	    passed[passed_count] = False
-	if avg >20:
+	    print "TEST FAILED: No data received!"
+	    f.write("\nTEST FAILED: No data received!\n")
+	if avg > 20:
 		passed[passed_count] = False
+		print "TEST FAILED: Data variance is ", avg, "%. Must be less than 20% to pass!"
+		f.write("\nTEST FAILED: Data variance is " + str(avg) + "%. Must be less than 20% to pass!\n")
 	
 	#------------------------------------------------
 	# Output Results
