@@ -2,7 +2,7 @@
 # This file is protected by Copyright. Please refer to the COPYRIGHT file
 # distributed with this source distribution.
 #
-# This file is part of FilterDecimate.
+# This file is part of REDHAWK FilterDecimate.
 #
 # FilterDecimate is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -36,7 +36,7 @@ Release:        1%{?dist}
 Summary:        Component %{name}
 
 Group:          REDHAWK/Components
-License:        None
+License:        GPLv3+
 Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -52,6 +52,8 @@ Requires:       liquid_dsp_v1       >= 1.0.0
 
 %description
 Component %{name}
+ * Commit: __REVISION__
+ * Source Date/Time: __DATETIME__
 
 
 %prep
