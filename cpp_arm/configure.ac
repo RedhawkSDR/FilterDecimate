@@ -41,8 +41,8 @@ AX_BOOST_SYSTEM
 AX_BOOST_THREAD
 AX_BOOST_REGEX
 
-export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:${SDR_ROOT}/dom/deps/liquid_dsp_v1/cpp/lib/pkgconfig"
-PKG_CHECK_MODULES(liquid_dsp_v1, liquid_dsp_v1 >= 1.2.0)
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:${SDR_ROOT}/dom/deps/liquid_dsp_v1/cpp_arm/lib/pkgconfig"
+PKG_CHECK_MODULES(liquid_dsp_v1, liquid_dsp_v1 >= 1.2.0, , AC_MSG_ERROR("Unable to find ARM liquid DSP Shared Package"))
 AC_SUBST(liquid_dsp_v1_CFLAGS)
 AC_SUBST(liquid_dsp_v1_LIBS)
 CXXFLAGS="$CXXFLAGS $liquid_dsp_v1_CFLAGS"
